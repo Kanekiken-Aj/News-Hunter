@@ -10,6 +10,7 @@ import {
   Route,
 } from "react-router-dom";
 import LoadingBar from 'react-top-loading-bar'
+import Footer from './components/Footer';
 
 
 
@@ -39,8 +40,11 @@ const App = () => {
             <Route exact path="/sports"><News setProgress={setProgress}  apiKey = {apiKey} key="sports" pageSize={pageSize} country="in" category="sports"/></Route> 
             <Route exact path="/technology"><News setProgress={setProgress}  apiKey = {apiKey} key="technology" pageSize={pageSize} country="in" category="technology"/></Route> 
           </Switch>
+          
         </Router>
+        <Footer/>
       </div>
+      
     )
   
 }

@@ -8,7 +8,9 @@ const News = (props)=>{
   const [articles, setArticles] = useState([])
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
-  const [totalResults, setTotalResults] = useState(0)
+  const [totalResults, setTotalResults] = useState(0);
+   // eslint-disable-next-line
+  const [message, setMessage] = useState("");
 
 
  
@@ -49,11 +51,21 @@ const updateNews = async ()=> {
   setLoading(false)
   props.setProgress(100);
 
+  // Check if the code is running on a local host
+const isLocal = window.location.hostname === 'localhost';
+
+  if (!isLocal) {
+    setMessage("The current project is using Developer plan of News API since it not running on localhost. News API is not available.");
+  } 
+
+
 }
 
 useEffect(() => {
   updateNews();
+  // eslint-disable-next-line
 }, []); // Include relevant dependencies
+
 // [props.country, props.category, props.apiKey, props.pageSize]
 
 
@@ -118,6 +130,9 @@ const fetchMoreData = async () => {
       {/* <div className="container my-3"> */}
         <h1 className="text-center" style={{margin: '30px 0px', marginTop:'90px'}}> NewsHunter - Top {capitalizeFirstLetter(props.category)} Headlines </h1>
         {loading && <Spinner/>}
+
+        {message && <p className="message" style={{textAlign: "center"}}>{message}</p>} 
+        {/* Render the message here */}
         <InfiniteScroll
           dataLength={articles? articles.length:0}
           next={fetchMoreData}
